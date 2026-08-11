@@ -1,0 +1,10 @@
+package fifo_wr_agent_pkg;
+	import uvm_pkg::*;
+	`include "uvm_macros.svh"
+	`include "fifo_wr_transaction_item.sv"
+	`include "fifo_wr_monitor.sv"
+	`include "fifo_wr_driver.sv"
+	`include "fifo_wr_sequencer.sv"
+	import fifo_wr_agent_config_pkg::*;
+	`include "fifo_wr_agent.sv"
+endpackage: fifo_wr_agent_pkg
