@@ -1,5 +1,6 @@
 package fifo_env_pkg;
 	import uvm_pkg::*;
+	import tb_params_pkg::DATA_WIDTH;
 	`include "uvm_macros.svh"
 	import fifo_wr_agent_config_pkg::*;
 	import fifo_rd_agent_config_pkg::*;

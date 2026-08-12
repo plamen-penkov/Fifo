@@ -1,5 +1,8 @@
 ../../rtl/fifo.v
 ../../rtl/register_array.v
+
+../top/tb_params_pkg.sv
+
 ../agents/fifo_wr_agent/fifo_wr_if.sv
 ../agents/fifo_rd_agent/fifo_rd_if.sv
 

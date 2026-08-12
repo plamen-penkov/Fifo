@@ -7,15 +7,13 @@ class fifo_rd_sequencer extends uvm_sequencer #(fifo_rd_transaction_item);
 
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		`uvm_info (get_name(), $sformatf("Hello from read sequencer build phase!"), UVM_HIGH)
 	endfunction: build_phase
 
 	virtual function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		`uvm_info (get_name(), $sformatf("Hello from read sequencer connect phase!"), UVM_HIGH)
 	endfunction: connect_phase
 
 	virtual task run_phase(uvm_phase phase);
-		`uvm_info (get_name(), $sformatf("Hello from read sequencer run phase!"), UVM_HIGH)
+		super.run_phase(phase);
 	endtask: run_phase
 endclass: fifo_rd_sequencer

@@ -1,4 +1,4 @@
-class fifo_wr_sequencer extends uvm_sequencer #(fifo_wr_transaction_item);
+class fifo_wr_sequencer extends uvm_sequencer #(fifo_wr_transaction_item#());
 	`uvm_component_utils(fifo_wr_sequencer)
 
 	function new (string name, uvm_component parent);

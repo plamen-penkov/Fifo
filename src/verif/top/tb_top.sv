@@ -1,7 +1,6 @@
+import uvm_pkg::*;
+import tb_params_pkg::*;
 module tb_top();
-	parameter ADDRESS_WIDTH = 5;
-	parameter DATA_WIDTH = 32;
-
 	logic clk, rst_n, we, re, full, empty, expected_full, expected_empty;
 	logic [DATA_WIDTH - 1:0] wrdata, rddata;
 	
@@ -19,16 +18,14 @@ module tb_top();
 		rst_n = 1;
 	end
 
-	import uvm_pkg::*;
-
 	fifo_wr_if #(.DATA_WIDTH(DATA_WIDTH)) wr_if(clk, rst_n);
 	fifo_rd_if #(.DATA_WIDTH(DATA_WIDTH)) rd_if(clk, rst_n);
 
 	initial begin
 		uvm_config_db #(int)::set(null, "", "fifo_depth", 2 ** ADDRESS_WIDTH);
 
-		uvm_config_db #(virtual fifo_wr_if#(32))::set(null, "", "wr_vif", wr_if);
-		uvm_config_db #(virtual fifo_rd_if#(32))::set(null, "", "rd_vif", rd_if);
+		uvm_config_db #(virtual fifo_wr_if#(.DATA_WIDTH(DATA_WIDTH)))::set(null, "", "wr_vif", wr_if);
+		uvm_config_db #(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH)))::set(null, "", "rd_vif", rd_if);
 
 		`uvm_info("TB_TOP", $sformatf("FIFO DEPTH: %d", (2 ** ADDRESS_WIDTH)), UVM_LOW)
 

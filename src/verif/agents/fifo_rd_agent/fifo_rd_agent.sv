@@ -7,15 +7,12 @@ class fifo_rd_agent extends uvm_agent;
 
 	fifo_rd_agent_config cfg;
 
-	virtual fifo_rd_if rd_vif;
-
 	function new (string name, uvm_component parent);
 		super.new(name, parent);
 	endfunction
 
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		`uvm_info (get_name(), $sformatf("Hello from read agent build phase!"), UVM_HIGH)
 		
 		rd_mon = fifo_rd_monitor::type_id::create("rd_mon", this);
 		rd_drv = fifo_rd_driver::type_id::create("rd_drv", this);
@@ -25,10 +22,8 @@ class fifo_rd_agent extends uvm_agent;
 			`uvm_fatal("NOVIF","No rd agent config")
 		end
 
-		rd_vif = cfg.vif;
-
-		uvm_config_db#(virtual fifo_rd_if#(32))::set(this, "rd_mon", "rd_vif_agt", rd_vif);
-		uvm_config_db#(virtual fifo_rd_if#(32))::set(this, "rd_drv", "rd_vif_agt", rd_vif);
+		uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH)))::set(this, "rd_mon", "rd_vif_agt", cfg.vif);
+		uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH)))::set(this, "rd_drv", "rd_vif_agt", cfg.vif);
 	endfunction: build_phase
 
 	virtual function void connect_phase(uvm_phase phase);
@@ -38,6 +33,6 @@ class fifo_rd_agent extends uvm_agent;
 	endfunction: connect_phase
 
 	virtual task run_phase(uvm_phase phase);
-		`uvm_info (get_name(), $sformatf("Hello from read agent run phase!"), UVM_HIGH)
+		super.run_phase(phase);
 	endtask: run_phase
 endclass: fifo_rd_agent

@@ -1,5 +1,5 @@
 class fifo_rd_transaction_item #(
-	parameter DATA_WIDTH = 32
+	parameter DATA_WIDTH = DATA_WIDTH
 ) extends uvm_sequence_item;
 	rand bit rd_en;
 	bit [DATA_WIDTH-1:0] rddata;

@@ -14,17 +14,16 @@ class fifo_base_test extends uvm_test;
 
 	virtual function void build_phase (uvm_phase phase);
 		super.build_phase(phase);
-		`uvm_info (get_name(), $sformatf ("Hello from base test build phase!"), UVM_LOW)
 
 		wr_agt_cfg = fifo_wr_agent_config::type_id::create("wr_agt_cfg");
 		rd_agt_cfg = fifo_rd_agent_config::type_id::create("rd_agt_cfg");
 		env_cfg = fifo_env_config::type_id::create("env_cfg");
 		
-		if (!uvm_config_db#(virtual fifo_wr_if#(32))::get(this, "fifo_base_test", "wr_vif", wr_agt_cfg.vif)) begin
+		if (!uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH(DATA_WIDTH)))::get(this, "fifo_base_test", "wr_vif", wr_agt_cfg.vif)) begin
 			`uvm_fatal("NOVIF", "No wr vif found in db");
 		end
 		
-		if (!uvm_config_db#(virtual fifo_rd_if#(32))::get(this, "fifo_base_test", "rd_vif", rd_agt_cfg.vif)) begin
+		if (!uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH)))::get(this, "fifo_base_test", "rd_vif", rd_agt_cfg.vif)) begin
 			`uvm_fatal("NOVIF", "No rd vif found in db");
 		end
 
@@ -38,6 +37,5 @@ class fifo_base_test extends uvm_test;
 
 	virtual task run_phase (uvm_phase phase);
 		super.run_phase(phase);
-		`uvm_info (get_name(), $sformatf ("Hello from base test run phase!"), UVM_HIGH)
 	endtask
 endclass: fifo_base_test

@@ -37,7 +37,6 @@ class fifo_write_read_test extends fifo_base_test;
 
     virtual task run_phase(uvm_phase phase);
         super.run_phase(phase);
-        `uvm_info (get_name(), $sformatf ("Hello from write-read test run phase!"), UVM_HIGH)
 
         phase.raise_objection(this);
         fork

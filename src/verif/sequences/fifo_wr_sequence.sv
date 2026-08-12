@@ -1,9 +1,9 @@
-class fifo_wr_sequence extends uvm_sequence#(fifo_wr_transaction_item#());
+class fifo_wr_sequence extends uvm_sequence#(fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH)));
     `uvm_object_utils(fifo_wr_sequence)
     int valid_transactions;
     int wr_en_dist;
     int fifo_depth;
-    fifo_wr_transaction_item#() tr;
+    fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH)) tr;
 
     function new(string name = "fifo_wr_sequence");
         super.new(name);
@@ -14,7 +14,7 @@ class fifo_wr_sequence extends uvm_sequence#(fifo_wr_transaction_item#());
 
     virtual task body();
         forever begin
-            tr = fifo_wr_transaction_item#()::type_id::create("tr");
+            tr = fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH))::type_id::create("tr");
             tr.wr_en_dist = wr_en_dist;
             start_item(tr);
 
