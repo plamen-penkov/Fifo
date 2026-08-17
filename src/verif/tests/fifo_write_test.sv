@@ -12,7 +12,7 @@ class fifo_write_test extends fifo_base_test;
         
         seq = fifo_wr_sequence::type_id::create("fifo_wr_sequence");
         if (!uvm_config_db#(int)::get(this, "", "fifo_depth", seq.fifo_depth)) begin
-            seq.fifo_depth = 3;
+            seq.fifo_depth = 8;
         end
 
         if($value$plusargs("wr_en_dist=%d", seq.wr_en_dist)) begin

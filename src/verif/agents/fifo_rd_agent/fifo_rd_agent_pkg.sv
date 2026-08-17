@@ -1,6 +1,6 @@
 package fifo_rd_agent_pkg;
 	import uvm_pkg::*;
-	import tb_params_pkg::DATA_WIDTH;
+	import tb_params_pkg::DATA_WIDTH_P;
 	`include "uvm_macros.svh"
 	`include "fifo_rd_transaction_item.sv"
 	`include "fifo_rd_monitor.sv"

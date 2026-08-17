@@ -1,4 +1,3 @@
-import tb_params_pkg::DATA_WIDTH;
 class fifo_wr_agent extends uvm_agent;
 	`uvm_component_utils(fifo_wr_agent)
 	
@@ -23,8 +22,8 @@ class fifo_wr_agent extends uvm_agent;
 			`uvm_fatal("NOCFG","No wr agent config")
 		end
 
-		uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH((DATA_WIDTH))))::set(this, "wr_mon", "wr_vif_agt", cfg.vif);
-		uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH((DATA_WIDTH))))::set(this, "wr_drv", "wr_vif_agt", cfg.vif);
+		uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH((DATA_WIDTH_P))))::set(this, "wr_mon", "wr_vif_agt", cfg.vif);
+		uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH((DATA_WIDTH_P))))::set(this, "wr_drv", "wr_vif_agt", cfg.vif);
 	endfunction: build_phase
 
 	virtual function void connect_phase(uvm_phase phase);

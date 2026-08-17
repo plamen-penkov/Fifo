@@ -22,8 +22,8 @@ class fifo_rd_agent extends uvm_agent;
 			`uvm_fatal("NOVIF","No rd agent config")
 		end
 
-		uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH)))::set(this, "rd_mon", "rd_vif_agt", cfg.vif);
-		uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH)))::set(this, "rd_drv", "rd_vif_agt", cfg.vif);
+		uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH_P)))::set(this, "rd_mon", "rd_vif_agt", cfg.vif);
+		uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH_P)))::set(this, "rd_drv", "rd_vif_agt", cfg.vif);
 	endfunction: build_phase
 
 	virtual function void connect_phase(uvm_phase phase);

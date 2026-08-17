@@ -1,7 +1,7 @@
-class fifo_wr_driver extends uvm_driver #(fifo_wr_transaction_item#());
+class fifo_wr_driver extends uvm_driver #(fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)));
 	`uvm_component_utils(fifo_wr_driver)
 
-	virtual fifo_wr_if#(.DATA_WIDTH(DATA_WIDTH)) vif;
+	virtual fifo_wr_if#(.DATA_WIDTH(DATA_WIDTH_P)) vif;
 
 	function new (string name, uvm_component parent);
 		super.new(name, parent);
@@ -10,7 +10,7 @@ class fifo_wr_driver extends uvm_driver #(fifo_wr_transaction_item#());
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 		
-		if (!uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH((DATA_WIDTH))))::get(this, "", "wr_vif_agt", vif)) begin
+		if (!uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH((DATA_WIDTH_P))))::get(this, "", "wr_vif_agt", vif)) begin
 			`uvm_fatal("NOVIF", "No wr vif for driver found in db");
 		end
 	endfunction: build_phase
@@ -20,7 +20,7 @@ class fifo_wr_driver extends uvm_driver #(fifo_wr_transaction_item#());
 	endfunction: connect_phase
 
 	virtual task run_phase(uvm_phase phase);
-		fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH)) tr;
+		fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)) tr;
 
 		@(negedge vif.rst_n) begin
 			vif.we <= 0;
@@ -29,12 +29,7 @@ class fifo_wr_driver extends uvm_driver #(fifo_wr_transaction_item#());
 		@(posedge vif.rst_n);
 
 		forever begin
-			seq_item_port.try_next_item(tr);
-
-			if (tr == null) begin
-				vif.we <= 0;
-				break;
-			end
+			seq_item_port.get_next_item(tr);
 
 			@(posedge vif.clk && vif.rst_n);
 
@@ -42,13 +37,10 @@ class fifo_wr_driver extends uvm_driver #(fifo_wr_transaction_item#());
 				@(posedge vif.clk);
 				vif.we <= 0;
 			end else begin
-				while (vif.full)
-					@(posedge vif.clk);
-				
+				@(posedge vif.clk);
 				vif.we <= 1;
 				vif.wrdata <= tr.wrdata;
 			end
-
 			seq_item_port.item_done();
 		end
 	endtask: run_phase

@@ -20,6 +20,9 @@
 +incdir+../scoreboard
 ../scoreboard/fifo_scoreboard_pkg.sv
 
++incdir+../coverage
+../coverage/coverage_pkg.sv
+
 +incdir+../env
 ../env/fifo_env_config_pkg.sv
 ../env/fifo_env_pkg.sv

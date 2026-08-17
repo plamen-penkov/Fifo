@@ -1,4 +1,4 @@
-class fifo_rd_sequencer extends uvm_sequencer #(fifo_rd_transaction_item);
+class fifo_rd_sequencer extends uvm_sequencer #(fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)));
 	`uvm_component_utils(fifo_rd_sequencer)
 
 	function new (string name, uvm_component parent);

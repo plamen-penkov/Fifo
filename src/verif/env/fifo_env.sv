@@ -10,6 +10,8 @@ class fifo_env extends uvm_env;
 
 	fifo_scoreboard scb;
 
+	coverage cov;
+
 	function new(string name, uvm_component parent);
 		super.new(name, parent);
 	endfunction
@@ -26,6 +28,11 @@ class fifo_env extends uvm_env;
 
 		uvm_config_db#(fifo_wr_agent_config)::set(this, "wr_agt", "wr_agt_cfg", env_cfg.wr_agt_cfg);
 		uvm_config_db#(fifo_rd_agent_config)::set(this, "rd_agt", "rd_agt_cfg", env_cfg.rd_agt_cfg);
+
+		cov = coverage::type_id::create("coverage", this);
+
+		uvm_config_db #(virtual fifo_wr_if#(.DATA_WIDTH(DATA_WIDTH_P)))::set(this, "coverage", "wr_vif", env_cfg.wr_agt_cfg.vif);
+		uvm_config_db #(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH_P)))::set(this, "coverage", "rd_vif", env_cfg.rd_agt_cfg.vif);
 
 		scb = fifo_scoreboard::type_id::create("scb", this);
 	endfunction: build_phase

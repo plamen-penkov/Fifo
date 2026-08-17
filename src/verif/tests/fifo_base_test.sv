@@ -19,11 +19,11 @@ class fifo_base_test extends uvm_test;
 		rd_agt_cfg = fifo_rd_agent_config::type_id::create("rd_agt_cfg");
 		env_cfg = fifo_env_config::type_id::create("env_cfg");
 		
-		if (!uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH(DATA_WIDTH)))::get(this, "fifo_base_test", "wr_vif", wr_agt_cfg.vif)) begin
+		if (!uvm_config_db#(virtual fifo_wr_if#(.DATA_WIDTH(DATA_WIDTH_P)))::get(this, "fifo_base_test", "wr_vif", wr_agt_cfg.vif)) begin
 			`uvm_fatal("NOVIF", "No wr vif found in db");
 		end
 		
-		if (!uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH)))::get(this, "fifo_base_test", "rd_vif", rd_agt_cfg.vif)) begin
+		if (!uvm_config_db#(virtual fifo_rd_if#(.DATA_WIDTH(DATA_WIDTH_P)))::get(this, "fifo_base_test", "rd_vif", rd_agt_cfg.vif)) begin
 			`uvm_fatal("NOVIF", "No rd vif found in db");
 		end
 

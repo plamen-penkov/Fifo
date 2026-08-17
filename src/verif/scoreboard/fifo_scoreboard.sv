@@ -4,10 +4,10 @@ class fifo_scoreboard extends uvm_scoreboard;
     `uvm_analysis_imp_decl(_WR)
     `uvm_analysis_imp_decl(_RD)
 
-    uvm_analysis_imp_WR#(fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH)), fifo_scoreboard) wr_ap_imp;
-    uvm_analysis_imp_RD#(fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH)), fifo_scoreboard) rd_ap_imp;
+    uvm_analysis_imp_WR#(fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)), fifo_scoreboard) wr_ap_imp;
+    uvm_analysis_imp_RD#(fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)), fifo_scoreboard) rd_ap_imp;
 
-    logic [DATA_WIDTH-1:0] tr_data[$];
+    logic [DATA_WIDTH_P-1:0] tr_data[$];
     int wr_count;
     int rd_count;
 
@@ -39,13 +39,13 @@ class fifo_scoreboard extends uvm_scoreboard;
         end
     endfunction
     
-    function void write_WR(fifo_wr_transaction_item tr);
+    function void write_WR(fifo_wr_transaction_item #(.DATA_WIDTH(DATA_WIDTH_P)) tr);
         wr_count++;
         tr_data.push_back(tr.wrdata);
     endfunction
     
-    logic [DATA_WIDTH-1:0] data;
-    function void write_RD(fifo_rd_transaction_item tr);
+    logic [DATA_WIDTH_P-1:0] data;
+    function void write_RD(fifo_rd_transaction_item #(.DATA_WIDTH(DATA_WIDTH_P)) tr);
         rd_count++;
         data = tr_data.pop_front();
         if (tr.rddata != data) begin

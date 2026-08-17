@@ -1,5 +1,5 @@
 module checker #(
-    parameter ADDRESS_WIDTH = 5
+    parameter ADDRESS_WIDTH_P = 5
 ) (
     input  logic clk,
     input  logic rst_n,
@@ -12,10 +12,10 @@ module checker #(
     output logic expected_empty
 );
 
-    localparam int FIFO_DEPTH = 2 ** ADDRESS_WIDTH;
+    localparam int FIFO_DEPTH = 2 ** ADDRESS_WIDTH_P;
 
     // Need to represent 0 through FIFO_DEPTH
-    logic [ADDRESS_WIDTH:0] transactions;
+    logic [ADDRESS_WIDTH_P:0] transactions;
 
     always_ff @(posedge clk) begin
         if (!rst_n) begin

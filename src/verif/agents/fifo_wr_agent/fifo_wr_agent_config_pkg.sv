@@ -1,5 +1,5 @@
 package fifo_wr_agent_config_pkg;
     import uvm_pkg::*;
-    import tb_params_pkg::DATA_WIDTH;
+    import tb_params_pkg::DATA_WIDTH_P;
     `include "fifo_wr_agent_config.sv";
 endpackage

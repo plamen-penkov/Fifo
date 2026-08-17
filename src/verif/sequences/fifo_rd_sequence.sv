@@ -1,9 +1,9 @@
-class fifo_rd_sequence extends uvm_sequence#(fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH)));
+class fifo_rd_sequence extends uvm_sequence#(fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)));
     `uvm_object_utils(fifo_rd_sequence)
     int valid_transactions;
     int rd_en_dist;
     int fifo_depth;
-    fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH)) tr;
+    fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)) tr;
 
     function new(string name = "fifo_rd_sequence");
         super.new(name);
@@ -13,8 +13,8 @@ class fifo_rd_sequence extends uvm_sequence#(fifo_rd_transaction_item#(.DATA_WID
     endfunction
 
     virtual task body();
-        forever begin
-            tr = fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH))::type_id::create("tr");
+        repeat(READ_COUNT_P) begin
+            tr = fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P))::type_id::create("tr");
             tr.rd_en_dist = rd_en_dist;
             start_item(tr);
 
@@ -24,7 +24,6 @@ class fifo_rd_sequence extends uvm_sequence#(fifo_rd_transaction_item#(.DATA_WID
             finish_item(tr);
             if (tr.rd_en) valid_transactions++;
             if (fifo_depth == valid_transactions) break;
-
         end
     endtask
 endclass
