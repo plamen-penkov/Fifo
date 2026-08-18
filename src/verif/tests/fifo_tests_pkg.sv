@@ -12,4 +12,5 @@ package fifo_tests_pkg;
 	`include "fifo_base_test.sv"
 	`include "fifo_write_test.sv"
 	`include "fifo_write_read_test.sv";
+	`include "fifo_directed_test.sv";
 endpackage: fifo_tests_pkg

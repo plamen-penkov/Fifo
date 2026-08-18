@@ -40,8 +40,10 @@ class fifo_scoreboard extends uvm_scoreboard;
     endfunction
     
     function void write_WR(fifo_wr_transaction_item #(.DATA_WIDTH(DATA_WIDTH_P)) tr);
-        wr_count++;
-        tr_data.push_back(tr.wrdata);
+        if(!tr.full) begin
+            wr_count++;
+            tr_data.push_back(tr.wrdata);
+        end
     endfunction
     
     logic [DATA_WIDTH_P-1:0] data;

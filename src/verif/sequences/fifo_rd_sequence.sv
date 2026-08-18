@@ -23,7 +23,6 @@ class fifo_rd_sequence extends uvm_sequence#(fifo_rd_transaction_item#(.DATA_WID
 
             finish_item(tr);
             if (tr.rd_en) valid_transactions++;
-            if (fifo_depth == valid_transactions) break;
         end
     endtask
 endclass

@@ -13,7 +13,7 @@ class fifo_wr_sequence extends uvm_sequence#(fifo_wr_transaction_item#(.DATA_WID
     endfunction
 
     virtual task body();
-        repeat(WRITE_COUNT_P) begin
+        for (int i = 0; i < WRITE_COUNT_P; i++) begin
             tr = fifo_wr_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P))::type_id::create("tr");
             tr.wr_en_dist = wr_en_dist;
             start_item(tr);
@@ -21,13 +21,9 @@ class fifo_wr_sequence extends uvm_sequence#(fifo_wr_transaction_item#(.DATA_WID
             assert (tr.randomize());
             // else `uvm_error("RANDOM ERROR", "Write transaction could not be randomized.");
 
-            if (tr.wr_en) begin
-                valid_transactions++;
-            end
-
-            if (fifo_depth == valid_transactions) break;
-
             finish_item(tr);
+
+            if (tr.wr_en) valid_transactions++;
         end
     endtask
 endclass

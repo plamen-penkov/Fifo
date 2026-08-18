@@ -22,22 +22,21 @@ class fifo_rd_driver extends uvm_driver#(fifo_rd_transaction_item#(.DATA_WIDTH(D
 	virtual task run_phase(uvm_phase phase);
 		fifo_rd_transaction_item#(.DATA_WIDTH(DATA_WIDTH_P)) tr;
 
-		// Drive read enabled to 0 prior to reset.
-
-		@(negedge vif.rst_n) begin
-			vif.re <= 0;
-		end
+		vif.re <= 0;
 		@(posedge vif.rst_n);
-		
+
 		forever begin
 			seq_item_port.get_next_item(tr);
-
-			@(posedge vif.clk && vif.rst_n);
-
-			if (tr.rd_en && !tr.empty)
+			
+			if (tr.rd_en && !tr.empty) begin
 				vif.re <= 1;
-			else
+			end else begin
 				vif.re <= 0;
+			end
+
+			@(posedge vif.clk);
+
+			vif.re <= 0;
 
 			seq_item_port.item_done();
 		end

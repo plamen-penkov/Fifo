@@ -2,19 +2,19 @@ package tb_params_pkg;
     import uvm_pkg::*;
 
     `ifndef FIFO_DATA_WIDTH
-        `define FIFO_DATA_WIDTH 32
+        `define FIFO_DATA_WIDTH 4
     `endif
 
     `ifndef FIFO_ADDRESS_WIDTH
-        `define FIFO_ADDRESS_WIDTH 8
+        `define FIFO_ADDRESS_WIDTH 4
     `endif
 
     `ifndef WRITE_COUNT
-        `define WRITE_COUNT 300
+        `define WRITE_COUNT 1000
     `endif
 
     `ifndef READ_COUNT
-        `define READ_COUNT 300
+        `define READ_COUNT 100
     `endif
 
     // Assign macro values to package parameters

@@ -45,7 +45,9 @@ module tb_top();
 		.empty(rd_if.empty)
 	);
 
-	checker my_checker (
+	checker #(
+		.ADDRESS_WIDTH(ADDRESS_WIDTH_P)
+	) my_checker (
 		.clk(clk),
 		.rst_n(rst_n),
 		.wr_en(wr_if.we),
