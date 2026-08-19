@@ -28,7 +28,7 @@ module tb_top();
 
 		`uvm_info("TB_TOP", $sformatf("FIFO DEPTH: %d", (2 ** ADDRESS_WIDTH_P)), UVM_LOW)
 
-		run_test("fifo_write_read_test");
+		run_test("fifo_directed_test_2");
 	end
 
 	fifo #(

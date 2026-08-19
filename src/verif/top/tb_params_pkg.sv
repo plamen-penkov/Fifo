@@ -10,7 +10,7 @@ package tb_params_pkg;
     `endif
 
     `ifndef WRITE_COUNT
-        `define WRITE_COUNT 1000
+        `define WRITE_COUNT 10000
     `endif
 
     `ifndef READ_COUNT
